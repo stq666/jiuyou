@@ -20,6 +20,7 @@ public class MemberVo extends Member {
     private int totalNumber=0;//下级人数
     private List<String> allSerialNumber = new ArrayList<>();//自己三级代理人的编码集合
     private Byte rewardStatus;//奖金发放状态
+
     public Integer getStart() {
         return start;
     }
@@ -52,6 +53,22 @@ public class MemberVo extends Member {
         this.flag = flag;
     }
 
+    public String getPserialnumber() {
+        return pserialnumber;
+    }
+
+    public void setPserialnumber(String pserialnumber) {
+        this.pserialnumber = pserialnumber;
+    }
+
+    public Long getPid() {
+        return pid;
+    }
+
+    public void setPid(Long pid) {
+        this.pid = pid;
+    }
+
     public String getpName() {
         return pName;
     }
@@ -68,12 +85,12 @@ public class MemberVo extends Member {
         this.totalMoney = totalMoney;
     }
 
-    public String getPserialnumber() {
-        return pserialnumber;
+    public int getTotalNumber() {
+        return totalNumber;
     }
 
-    public void setPserialnumber(String pserialnumber) {
-        this.pserialnumber = pserialnumber;
+    public void setTotalNumber(int totalNumber) {
+        this.totalNumber = totalNumber;
     }
 
     public List<String> getAllSerialNumber() {
@@ -81,24 +98,7 @@ public class MemberVo extends Member {
     }
 
     public void setAllSerialNumber(List<String> allSerialNumber) {
-
         this.allSerialNumber = allSerialNumber;
-    }
-
-    public Long getPid() {
-        return pid;
-    }
-
-    public void setPid(Long pid) {
-        this.pid = pid;
-    }
-
-    public int getTotalNumber() {
-        return totalNumber;
-    }
-
-    public void setTotalNumber(int totalNumber) {
-        this.totalNumber = totalNumber;
     }
 
     public Byte getRewardStatus() {

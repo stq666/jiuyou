@@ -43,35 +43,29 @@ public class MemberServiceImpl implements MemberService {
             int start = page.getCurrentNum();
             int end=page.getPageSize()> ConstantElement.pageSize?ConstantElement.pageSize:page.getPageSize();
             MemberVo vo=page.getObj();
-            if(ifmanager==(byte)0){//非管理员
-                //获取自己的三级代理人的所有编码
-                vo.setAllSerialNumber(findSubSerialNumber(serialNumber));
-                int totalsize=memberMapper.findCountByCondition(vo);
-                page.calculate(totalsize, start, end);
-                vo.setStart(page.getStartPos());
-                vo.setLimit(page.getEndPos());
-                List<MemberVo> list=memberMapper.findDataByCondition(vo);
-                page.setDatas(list);
-            }else{//管理员
-                int totalsize=memberMapper.findCountByCondition(vo);
-                page.calculate(totalsize, start, end);
-                vo.setStart(page.getStartPos());
-                vo.setLimit(page.getEndPos());
-                List<MemberVo> list=memberMapper.findDataByCondition(vo);
-                if(list!=null && list.size()>0){
-                    for(MemberVo mvo:list){
-                        if(mvo==null){continue;}
-                        List<String> allSerialNumber = new ArrayList<>();
-                        allSerialNumber.addAll(getSerialNumberByCurrentSerialNumber(mvo.getSerialnumber()));
-                        mvo.setTotalNumber(allSerialNumber.size());
-                        Map map = getTotalMoneyCurrentDay(mvo.getSerialnumber());
-                        mvo.setTotalMoney(Integer.valueOf(String.valueOf(map.get("totalMoney"))));
-                        mvo.setRewardStatus(Byte.valueOf(String.valueOf(map.get("rewardStatus"))));
-                    }
-                }
-                page.setDatas(list);
+            if(ifmanager==(byte)0){
+                vo.setSerialnumber(serialNumber);
             }
-
+            int totalsize=memberMapper.findCountByCondition(vo);
+            page.calculate(totalsize, start, end);
+            vo.setStart(page.getStartPos());
+            vo.setLimit(page.getEndPos());
+            List<MemberVo> list=memberMapper.findDataByCondition(vo);
+            page.setDatas(list);
+//            if(ifmanager==(byte)1){//获取奖励　TODO
+//                if(list!=null && list.size()>0){
+//                    for(MemberVo mvo:list){
+//                        if(mvo==null){continue;}
+//                        List<String> allSerialNumber = new ArrayList<>();
+//                        allSerialNumber.addAll(getSerialNumberByCurrentSerialNumber(mvo.getSerialnumber()));
+//                        mvo.setTotalNumber(allSerialNumber.size());
+//                        Map map = getTotalMoneyCurrentDay(mvo.getSerialnumber());
+//                        mvo.setTotalMoney(Integer.valueOf(String.valueOf(map.get("totalMoney"))));
+//                        mvo.setRewardStatus(Byte.valueOf(String.valueOf(map.get("rewardStatus"))));
+//                    }
+//                }
+//                page.setDatas(list);
+//            }
             return page;
         } catch (ServiceException e) {
             log.error(e.getMessage());
