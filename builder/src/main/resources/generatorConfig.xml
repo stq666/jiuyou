@@ -19,7 +19,7 @@
 
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
                         connectionURL="jdbc:mysql://localhost:3306/direct_selling?useUnicode=true&amp;characterEncoding=utf-8"
-                        userId="root" password="root"/>
+                        userId="root" password="123"/>
 
 
         <!-- 指定生成的类型为java类型，避免数据库中number等类型字段 -->
@@ -48,5 +48,6 @@
         <table tableName="user" domainObjectName="User"/>
         <table tableName="reward" domainObjectName="Reward"/>
         <table tableName="member_level" domainObjectName="MemberLevel"/>
+        <table tableName="public_row" domainObjectName="PublicRow"/>
     </context>
 </generatorConfiguration>

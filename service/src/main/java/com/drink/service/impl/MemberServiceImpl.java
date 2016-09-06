@@ -144,13 +144,14 @@ public class MemberServiceImpl implements MemberService {
 //    }
 
     @Override
-
     public void saveMember(MemberVo vo) {
         //首先判断下级是否已经拥有了3个成员，如果已经满3个了，就不能再在这个会员编号下注册会员了
 //        int count = memberMapper.selectCountBySerialNumber(vo.getPserialnumber());
         int count = memberLevelMapper.selectCountBySerialNumber(vo.getPserialnumber(),(byte)1);
-        if(count>=3){
+        if(count>=5){//只放在公排下 TODO
             throw new ServiceException("此会员下已经有3个注册会员了，不能在此会员下注册了");
+        }else{//既放在公排下，又放在层
+
         }
         //首先保存新注册的会员
         Member member = new Member();
@@ -174,6 +175,35 @@ public class MemberServiceImpl implements MemberService {
             saveReward(vo);
         }
     }
+//    public void saveMember(MemberVo vo) {
+//        //首先判断下级是否已经拥有了3个成员，如果已经满3个了，就不能再在这个会员编号下注册会员了
+////        int count = memberMapper.selectCountBySerialNumber(vo.getPserialnumber());
+//        int count = memberLevelMapper.selectCountBySerialNumber(vo.getPserialnumber(),(byte)1);
+//        if(count>=3){
+//            throw new ServiceException("此会员下已经有3个注册会员了，不能在此会员下注册了");
+//        }
+//        //首先保存新注册的会员
+//        Member member = new Member();
+//        BeanUtils.copyProperties(vo,member);
+//        member.setStatus((byte)0);
+//        memberMapper.insert(member);
+//        Long memberId = memberMapper.selectId();
+//        //保存用户
+//        User user = new User();
+//        user.setLoginname(vo.getLoginname());
+//        user.setPassword(new MD5().getMD5ofStr("123456"));
+//        user.setStatus((byte)0);
+//        user.setIfmanager((byte)0);
+//        user.setMemberid(memberId);
+//        user.setCreatetime(new Date());
+//        userMapper.insert(user);
+//        if(vo.getFlag()==(byte)0){
+//            //第一步：保存父子级关系
+//            saveMemberLevel(vo.getSerialnumber(),vo.getPserialnumber());
+//            //第二步：统计奖励
+//            saveReward(vo);
+//        }
+//    }
 
     /**
      * 保存奖励

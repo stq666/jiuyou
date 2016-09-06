@@ -89,16 +89,16 @@
                 <td data-title="'下级人数'" style="width: 5%" ng-show="ifmanager==1">
                     {{data.totalNumber}}
                 </td>
-                <td data-title="'今日奖金'" style="width: 5%" ng-show="ifmanager==1">
-                    {{data.totalMoney}}
-                </td>
-                <td data-title="'奖金发放状态'" style="width: 10%" ng-show="ifmanager==1">
-                    {{data.rewardStatus==0?'未发放':'已发放'}}
-                </td>
-                <td data-title="'操作'" style="width: 50%" ng-show="ifmanager==1">
-                    <button class="jixiao_lijichakan"  ng-click="showEveryDayMoney(data.serialnumber)">未发奖金</button>
-                    <button class="jixiao_lijichakan"  ng-click="addMoney(data.serialnumber,data.totalMoney,data.rewardStatus)">发放奖金</button>
-                </td>
+                <!--<td data-title="'今日奖金'" style="width: 5%" ng-show="ifmanager==1">-->
+                    <!--{{data.totalMoney}}-->
+                <!--</td>-->
+                <!--<td data-title="'奖金发放状态'" style="width: 10%" ng-show="ifmanager==1">-->
+                    <!--{{data.rewardStatus==0?'未发放':'已发放'}}-->
+                <!--</td>-->
+                <!--<td data-title="'操作'" style="width: 50%" ng-show="ifmanager==1">-->
+                    <!--<button class="jixiao_lijichakan"  ng-click="showEveryDayMoney(data.serialnumber)">未发奖金</button>-->
+                    <!--<button class="jixiao_lijichakan"  ng-click="addMoney(data.serialnumber,data.totalMoney,data.rewardStatus)">发放奖金</button>-->
+                <!--</td>-->
             </tr>
         </table>
     </div>
