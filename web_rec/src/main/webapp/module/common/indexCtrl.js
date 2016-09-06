@@ -16,6 +16,8 @@ member.controller('BaseIndexCtrl', ['$scope','$rootScope','$location','SecurityC
     $scope.markCss=function(id,url){
         if(id=='rec_1'){
             $scope.rec1=!$scope.rec1;
+        }else if(id=='rec_0'){
+            $scope.rec0=!$scope.rec0;
         }else if(id=='rec_4'){
             $scope.rec4=!$scope.rec4;
         }else if(id=='rec_6'){
