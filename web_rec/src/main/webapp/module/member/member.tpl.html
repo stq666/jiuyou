@@ -74,16 +74,16 @@
                 <td data-title="'性别'" style="width: 5%">
                     {{data.sex==0&&'男'||'女'}}
                 </td>
-                <td data-title="'手机号'" style="width: 10%">
+                <td data-title="'手机号'" style="width: 10%" ng-show="ifmanager==1">
                     {{data.telphone}}
                 </td>
-                <td data-title="'推荐人'" style="width: 7%">
+                <td data-title="'推荐人'" style="width: 7%" ng-show="ifmanager==1">
                     {{data.pName}}
                 </td>
                 <td data-title="'注册日期'" style="width: 10%">
                     {{data.createtime| date :'yyyy-MM-dd'}}
                 </td>
-                <td data-title="'微信号'" style="width: 10%">
+                <td data-title="'微信号'" style="width: 10%" ng-show="ifmanager==1">
                     {{data.wechat}}
                 </td>
                 <td data-title="'下级人数'" style="width: 5%" ng-show="ifmanager==1">

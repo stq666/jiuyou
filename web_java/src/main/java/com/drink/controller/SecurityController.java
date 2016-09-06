@@ -54,7 +54,9 @@ public class SecurityController {
                 Map map = userService.findUserByNameAndPwd(loginName,pwd);
                 if(map!=null && map.size()>0){//查找到
                     if(map.get("user")!=null){
-                        session.setAttribute(ConstantElement._USERINFO, map.get("user"));
+                        User user = (User) map.get("user");
+                        session.setAttribute(ConstantElement._USERINFO, user);
+                        session.setAttribute(ConstantElement._SERIALNUMBER,user.getLoginname());
                         session.setTimeout(3600000);
                         result = new Message().getResult(true,true,map.get("user"),null,null);
                     }else{

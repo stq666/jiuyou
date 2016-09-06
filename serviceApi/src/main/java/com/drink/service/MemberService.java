@@ -18,7 +18,7 @@ public interface MemberService {
      * @param ifmanager 是否为管理员，0：否，1：是
      * @return
      */
-    public Page<MemberVo> findPageMember(Page<MemberVo> page,byte ifmanager);
+    public Page<MemberVo> findPageMember(Page<MemberVo> page,byte ifmanager,String serialNumber);
 
     /**
      * 保存新注册的会员

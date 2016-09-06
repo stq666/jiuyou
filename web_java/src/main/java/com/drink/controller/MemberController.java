@@ -57,7 +57,7 @@ public class MemberController {
             User user=((User)subject.getSession(true).getAttribute(ConstantElement._USERINFO));
             vo.setId(user.getMemberid());
             page.setObj(vo);
-            page=memberService.findPageMember(page,user.getIfmanager());
+            page=memberService.findPageMember(page,user.getIfmanager(),user.getLoginname());
             return msg.getResult(true,false,page,null,null);
         }catch (ServiceException e) {
             logger.error(e.getMessage());
