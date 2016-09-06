@@ -29,6 +29,12 @@
     values (#{id,jdbcType=BIGINT}, #{serialnumber,jdbcType=VARCHAR}, #{pserialnumber,jdbcType=VARCHAR}, 
       #{bord,jdbcType=TINYINT})
   </insert>
+  <insert id="insertMemberLevel" parameterType="com.drink.model.MemberLevel">
+    insert into member_level (serialnumber, pserialnumber,
+      bord)
+    values (#{serialnumber,jdbcType=VARCHAR}, #{pserialnumber,jdbcType=VARCHAR},
+      #{bord,jdbcType=TINYINT})
+  </insert>
   <update id="updateByPrimaryKey" parameterType="com.drink.model.MemberLevel">
     <!--
       WARNING - @mbggenerated

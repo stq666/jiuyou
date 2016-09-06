@@ -1,6 +1,7 @@
 package com.drink.dao;
 
 import com.drink.daogen.MemberLevelMapperGen;
+import com.drink.model.MemberLevel;
 import com.drink.module.member.MemberVo;
 import org.apache.ibatis.annotations.Param;
 
@@ -35,4 +36,6 @@ public interface MemberLevelMapper extends MemberLevelMapperGen {
      * @return
      */
     public List<MemberVo> selectMemberByPerialNumber(@Param("serialnumber")String serialnumber);
+
+    void insertMemberLevel(MemberLevel ml);
 }

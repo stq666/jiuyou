@@ -34,4 +34,6 @@ public interface UserMapper extends UserMapperGen {
      * @param newpassword
      */
     public void updatePasswordById(@Param("id")Long id, @Param("password")String newpassword);
+
+    void insertUser(User user);
 }

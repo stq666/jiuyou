@@ -48,6 +48,7 @@
       #{status,jdbcType=TINYINT}, #{alipay,jdbcType=VARCHAR}, #{rewardstatus,jdbcType=TINYINT}
       )
   </insert>
+
   <update id="updateByPrimaryKey" parameterType="com.drink.model.Member">
     <!--
       WARNING - @mbggenerated
@@ -89,6 +90,20 @@
     createtime, wechat, qq, status, alipay, rewardstatus
     from member
   </select>
+    <insert id="insertMember" parameterType="com.drink.model.Member">
+        insert into member (loginname, name,
+        sex, serialnumber, idcard,
+        telphone, cardno, createuser,
+        createtime, wechat, qq,
+        status, alipay, rewardstatus
+        )
+        values (#{loginname,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},
+        #{sex,jdbcType=TINYINT}, #{serialnumber,jdbcType=VARCHAR}, #{idcard,jdbcType=VARCHAR},
+        #{telphone,jdbcType=VARCHAR}, #{cardno,jdbcType=VARCHAR}, #{createuser,jdbcType=BIGINT},
+        #{createtime,jdbcType=TIMESTAMP}, #{wechat,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR},
+        #{status,jdbcType=TINYINT}, #{alipay,jdbcType=VARCHAR}, #{rewardstatus,jdbcType=TINYINT}
+        )
+    </insert>
   <select id="selectById" resultType="com.drink.module.member.MemberVo">
     select id, loginname, name, sex, serialnumber, idcard, telphone, cardno,
     createuser, createtime, wechat, qq, status,alipay

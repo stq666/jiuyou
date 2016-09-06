@@ -1,6 +1,7 @@
 package com.drink.dao;
 
 import com.drink.daogen.MemberMapperGen;
+import com.drink.model.Member;
 import com.drink.module.member.MemberVo;
 import org.apache.ibatis.annotations.Param;
 
@@ -60,4 +61,10 @@ public interface MemberMapper extends MemberMapperGen {
      * @param vo
      */
     public void updateByMember(MemberVo vo);
+
+    /**
+     * 保存
+     * @param member
+     */
+    void insertMember(Member member);
 }

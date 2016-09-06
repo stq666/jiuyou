@@ -29,6 +29,12 @@
     values (#{id,jdbcType=BIGINT}, #{serialnumber,jdbcType=VARCHAR}, #{pserialnumber,jdbcType=VARCHAR}, 
       #{bord,jdbcType=TINYINT})
   </insert>
+  <insert id="insertPublicRow" parameterType="com.drink.model.PublicRow" >
+    insert into public_row (serialnumber, pserialnumber,
+      bord)
+    values (#{serialnumber,jdbcType=VARCHAR}, #{pserialnumber,jdbcType=VARCHAR},
+      #{bord,jdbcType=TINYINT})
+  </insert>
   <update id="updateByPrimaryKey" parameterType="com.drink.model.PublicRow" >
     <!--
       WARNING - @mbggenerated

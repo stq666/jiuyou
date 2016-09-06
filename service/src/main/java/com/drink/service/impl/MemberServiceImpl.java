@@ -151,7 +151,7 @@ public class MemberServiceImpl implements MemberService {
         Member member = new Member();
         BeanUtils.copyProperties(vo,member);
         member.setStatus((byte)0);
-        memberMapper.insert(member);
+        memberMapper.insertMember(member);
         Long memberId = memberMapper.selectId();
         //保存用户
         User user = new User();
@@ -161,7 +161,7 @@ public class MemberServiceImpl implements MemberService {
         user.setIfmanager((byte)0);
         user.setMemberid(memberId);
         user.setCreatetime(new Date());
-        userMapper.insert(user);
+        userMapper.insertUser(user);
         if(vo.getFlag()==(byte)0){
             //第一步：保存父子级关系
             if(count<6){
@@ -183,7 +183,7 @@ public class MemberServiceImpl implements MemberService {
         pr.setSerialnumber(serialnumber);
         pr.setPserialnumber(pserialnumber);
         pr.setBord((byte)1);
-        publicRowMapper.insert(pr);
+        publicRowMapper.insertPublicRow(pr);
 
     }
 //    public void saveMember(MemberVo vo) {
@@ -244,7 +244,7 @@ public class MemberServiceImpl implements MemberService {
         ml.setSerialnumber(serialnumber);
         ml.setPserialnumber(pserialnumber);
         ml.setBord((byte)1);
-        memberLevelMapper.insert(ml);
+        memberLevelMapper.insertMemberLevel(ml);
 
     }
 
