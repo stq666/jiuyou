@@ -188,9 +188,6 @@ public class MemberServiceImpl implements MemberService {
         //首先判断下级是否已经拥有了3个成员，如果已经满3个了，就不能再在这个会员编号下注册会员了
 //        int count = memberMapper.selectCountBySerialNumber(vo.getPserialnumber());
         int count = memberLevelMapper.selectCountBySerialNumber(vo.getPserialnumber(),(byte)1);
-        if(count<5){//既放在公排下，又放在层
-
-        }
         //首先保存新注册的会员
         Member member = new Member();
         BeanUtils.copyProperties(vo,member);
@@ -208,7 +205,7 @@ public class MemberServiceImpl implements MemberService {
         userMapper.insertUser(user);
         if(vo.getFlag()==(byte)0){
             //第一步：保存父子级关系
-            if(count<6){
+            if(count<5){
                 saveMemberLevel(vo.getSerialnumber(),vo.getPserialnumber());
             }
             savePublicRow(vo.getSerialnumber(),vo.getPserialnumber());

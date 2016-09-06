@@ -64,7 +64,7 @@
     from member_level
   </select>
     <select id="selectCountBySerialNumber" resultType="java.lang.Integer">
-        select count(id) from member_level where pserialnumber=#{serialnumber}
+        select count(id) from member_level where pserialnumber=#{serialnumber} and bord=#{bord}
     </select>
     <select id="selectPserialNumberBySerialNumber" resultType="java.lang.String">
         select pserialnumber from member_level where serialnumber=#{serialnumber} and bord=1
