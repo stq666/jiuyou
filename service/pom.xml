@@ -143,17 +143,17 @@
             <artifactId>sigar</artifactId>
         </dependency>
         
-        <dependency>
-        <groupId>fakepath</groupId>
-        <artifactId>taobao-express</artifactId>
-        <version>3.0.7</version>
-    </dependency>
-    <dependency>
-        <groupId>fakepath</groupId>
-        <artifactId>taobao-express</artifactId>
-        <version>3.0.7</version>
-        <classifier>sources</classifier>
-    </dependency>
+        <!--<dependency>-->
+        <!--<groupId>fakepath</groupId>-->
+        <!--<artifactId>taobao-express</artifactId>-->
+        <!--<version>3.0.7</version>-->
+    <!--</dependency>-->
+    <!--<dependency>-->
+        <!--<groupId>fakepath</groupId>-->
+        <!--<artifactId>taobao-express</artifactId>-->
+        <!--<version>3.0.7</version>-->
+        <!--<classifier>sources</classifier>-->
+    <!--</dependency>-->
     </dependencies>
 
     <build>

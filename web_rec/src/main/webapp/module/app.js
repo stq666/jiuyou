@@ -5,8 +5,8 @@ var appConfig;
         // "baseURL": "http://192.168.1.121/rest",
         // "baseURL": "http://192.168.1.126/rest",
 //        "baseURL": "http://192.168.0.107:8080/rec/rest",
-//        "baseURL": "http://localhost:8080/rec/rest",
-        "baseURL": "http://www.jiuyoulm.com/rest",
+        "baseURL": "http://localhost:8080/rec/rest",
+        //"baseURL": "http://www.jiuyoulm.com/rest",
         "loginPath": "/security/login",                                                                                                  
         "logoutPath": "/security/logout",
         "jsErrorHandlerPath": "/jsErrorHandlerPath/log"
