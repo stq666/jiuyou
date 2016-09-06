@@ -4,7 +4,9 @@
 <configuration>
     <!-- 配置mybatis的缓存，延迟加载等等一系列属性 -->
     <settings>
+        <setting name="logImpl" value="STDOUT_LOGGING" />
         <!-- 全局映射器启用缓存 -->
+
         <setting name="cacheEnabled" value="true"/>
         <!-- 查询时，关闭关联对象即时加载以提高性能 -->
         <setting name="lazyLoadingEnabled" value="false"/>
@@ -23,6 +25,7 @@
         <!-- 数据库超过25000秒仍未响应则超时 -->
         <setting name="defaultStatementTimeout" value="25000"/>
     </settings>
+
     <!-- 全局别名设置，在映射文件中只需写别名，而不必写出整个类路径 -->
     <!-- <typeAliases>
         <typeAlias alias="TestBean"

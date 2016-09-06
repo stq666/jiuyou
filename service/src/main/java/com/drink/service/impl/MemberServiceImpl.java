@@ -46,6 +46,7 @@ public class MemberServiceImpl implements MemberService {
             if(ifmanager==(byte)0){
                 vo.setSerialnumber(serialNumber);
             }
+            vo.setIfmanager(ifmanager);
             int totalsize=memberMapper.findCountByCondition(vo);
             page.calculate(totalsize, start, end);
             vo.setStart(page.getStartPos());

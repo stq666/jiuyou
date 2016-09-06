@@ -115,26 +115,26 @@
     <select id="findDataByCondition" parameterType="com.drink.module.member.MemberVo" resultType="com.drink.module.member.MemberVo">
         select m.id, m.loginname, m.name, m.sex, m.serialnumber, m.idcard, m.telphone, m.cardno,
         m.createuser, m.createtime, m.wechat, m.qq, m.status,m.alipay,pm.name as pName,pm.serialnumber as pserialnumber
-        from public_row p
-        LEFT JOIN member m ON m.serialnumber=p.serialnumber
+        from  member m
+        LEFT JOIN  public_row p ON m.serialnumber=p.serialnumber
         left join member pm on (pm.serialnumber=p.pserialnumber)
         where m.status=0
         <if test="name != null and name!=''">
             and m.name like "%"#{name}"%"
         </if>
-        <if test="serialnumber != null and serialnumber!=''">
+        <if test="ifmanager==0">
             and p.pserialnumber=#{serialnumber}
         </if>
         order by p.serialnumber asc  limit #{start} , #{limit}
     </select>
     <select id="findCountByCondition" parameterType="com.drink.module.member.MemberVo" resultType="java.lang.Integer">
-        SELECT count(p.id) FROM public_row p
-        LEFT JOIN member m ON m.serialnumber=p.serialnumber
+        SELECT count(p.id) FROM member m
+        LEFT JOIN  public_row p ON m.serialnumber=p.serialnumber
         where m.status=0
         <if test="name != null and name!=''">
             and m.name like "%"#{name}"%"
         </if>
-        <if test="serialnumber != null and serialnumber!=''">
+        <if test="ifmanager==0">
             and p.pserialnumber=#{serialnumber}
         </if>
     </select>

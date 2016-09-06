@@ -20,6 +20,15 @@ public class MemberVo extends Member {
     private int totalNumber=0;//下级人数
     private List<String> allSerialNumber = new ArrayList<>();//自己三级代理人的编码集合
     private Byte rewardStatus;//奖金发放状态
+    private Byte ifmanager;
+
+    public Byte getIfmanager() {
+        return ifmanager;
+    }
+
+    public void setIfmanager(Byte ifmanager) {
+        this.ifmanager = ifmanager;
+    }
 
     public Integer getStart() {
         return start;
