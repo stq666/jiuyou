@@ -5,14 +5,8 @@ import com.drink.cornerstone.service.ServiceException;
 import com.drink.cornerstone.util.DateUtil;
 import com.drink.cornerstone.util.MD5;
 import com.drink.cornerstone.util.StringUtil;
-import com.drink.dao.MemberLevelMapper;
-import com.drink.dao.MemberMapper;
-import com.drink.dao.RewardMapper;
-import com.drink.dao.UserMapper;
-import com.drink.model.Member;
-import com.drink.model.MemberLevel;
-import com.drink.model.Reward;
-import com.drink.model.User;
+import com.drink.dao.*;
+import com.drink.model.*;
 import com.drink.module.Page;
 import com.drink.module.TreeNode;
 import com.drink.module.member.MemberVo;
@@ -41,6 +35,8 @@ public class MemberServiceImpl implements MemberService {
     RewardMapper rewardMapper;
     @Autowired
     MemberLevelMapper memberLevelMapper;
+    @Autowired
+    PublicRowMapper publicRowMapper;
     @Override
     public Page<MemberVo> findPageMember(Page<MemberVo> page,byte ifmanager) {
         try {
@@ -148,9 +144,7 @@ public class MemberServiceImpl implements MemberService {
         //首先判断下级是否已经拥有了3个成员，如果已经满3个了，就不能再在这个会员编号下注册会员了
 //        int count = memberMapper.selectCountBySerialNumber(vo.getPserialnumber());
         int count = memberLevelMapper.selectCountBySerialNumber(vo.getPserialnumber(),(byte)1);
-        if(count>=5){//只放在公排下 TODO
-            throw new ServiceException("此会员下已经有3个注册会员了，不能在此会员下注册了");
-        }else{//既放在公排下，又放在层
+        if(count<5){//既放在公排下，又放在层
 
         }
         //首先保存新注册的会员
@@ -170,10 +164,27 @@ public class MemberServiceImpl implements MemberService {
         userMapper.insert(user);
         if(vo.getFlag()==(byte)0){
             //第一步：保存父子级关系
-            saveMemberLevel(vo.getSerialnumber(),vo.getPserialnumber());
+            if(count<6){
+                saveMemberLevel(vo.getSerialnumber(),vo.getPserialnumber());
+            }
+            savePublicRow(vo.getSerialnumber(),vo.getPserialnumber());
             //第二步：统计奖励
-            saveReward(vo);
+//            saveReward(vo);
         }
+    }
+
+    /**
+     * 保存公排
+     * @param serialnumber
+     * @param pserialnumber
+     */
+    private void savePublicRow(String serialnumber, String pserialnumber) {
+        PublicRow pr = new PublicRow();
+        pr.setSerialnumber(serialnumber);
+        pr.setPserialnumber(pserialnumber);
+        pr.setBord((byte)1);
+        publicRowMapper.insert(pr);
+
     }
 //    public void saveMember(MemberVo vo) {
 //        //首先判断下级是否已经拥有了3个成员，如果已经满3个了，就不能再在这个会员编号下注册会员了
@@ -234,6 +245,7 @@ public class MemberServiceImpl implements MemberService {
         ml.setPserialnumber(pserialnumber);
         ml.setBord((byte)1);
         memberLevelMapper.insert(ml);
+
     }
 
 
