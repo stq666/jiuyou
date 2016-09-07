@@ -78,7 +78,8 @@ public class MemberServiceImpl implements MemberService {
      * @return
      */
     private int findAllReward(String serialnumber) {
-        return rewardMapper.findAllRewardBySerialNumber(serialnumber);
+        Integer count = rewardMapper.findAllRewardBySerialNumber(serialnumber);
+        return count==null?0:count;
     }
 
     /**
