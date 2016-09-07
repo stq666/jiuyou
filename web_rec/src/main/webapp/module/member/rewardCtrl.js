@@ -6,7 +6,7 @@ member.controller('RewardCtrl', ['$scope','$state','$window','$filter','MemberCo
     $scope.errorEmailFlag = false;
     $scope.errorPhoneFlag = false;
     $scope.member = null;
-    $scope.ifmanager = localStorageService.get('ifmanager');
+    $scope.serialnumber = $state.params.serialnumber;
     /**
      * 获取分页数据
      * @param pageSize
@@ -23,7 +23,7 @@ member.controller('RewardCtrl', ['$scope','$state','$window','$filter','MemberCo
         MemberControllerService.findPageReward({
             pageSize:$scope.pageSize,
             currentNum:currentNum,
-            memberserialnumber:$scope.memberserialnumber}).then(onSuccess,null);
+            memberserialnumber:$scope.serialnumber}).then(onSuccess,null);
     }
     $scope.pageChanged = function() {
         page($scope.bigCurrentPage);
