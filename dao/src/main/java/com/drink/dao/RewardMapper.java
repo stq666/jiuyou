@@ -34,4 +34,6 @@ public interface RewardMapper extends RewardMapperGen {
     public List<RewordVo> findDataByCondition(RewordVo vo);
 
     public List<RewordVo> selectEveryDayMoney(@Param("serialnumber")String serialnumber);
+
+    void insertReward(Reward reward);
 }

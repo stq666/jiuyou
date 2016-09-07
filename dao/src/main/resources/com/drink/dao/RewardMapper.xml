@@ -38,6 +38,7 @@
       #{type,jdbcType=TINYINT}, #{status,jdbcType=TINYINT}, #{level,jdbcType=TINYINT}
       )
   </insert>
+
   <update id="updateByPrimaryKey" parameterType="com.drink.model.Reward">
     <!--
       WARNING - @mbggenerated
@@ -73,6 +74,16 @@
     status, level
     from reward
   </select>
+  <insert id="insertReward" parameterType="com.drink.model.Reward">
+    insert into reward (memberserialnumber, rewardmoney,
+    rewardtime, createtime, createuser,
+    type, status, level
+    )
+    values (#{memberserialnumber,jdbcType=VARCHAR}, #{rewardmoney,jdbcType=INTEGER},
+    #{rewardtime,jdbcType=DATE}, #{createtime,jdbcType=TIMESTAMP}, #{createuser,jdbcType=BIGINT},
+    #{type,jdbcType=TINYINT}, #{status,jdbcType=TINYINT}, #{level,jdbcType=TINYINT}
+    )
+  </insert>
     <select id="selectBySerialNumber" resultType="com.drink.model.Reward">
         select id, memberserialnumber, rewardmoney, rewardtime, createtime, createuser, type,status
         from reward where memberserialnumber=#{serialnumber} and rewardtime=#{rewardtime}

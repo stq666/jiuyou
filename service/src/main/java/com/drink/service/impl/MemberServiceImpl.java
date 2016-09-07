@@ -210,7 +210,60 @@ public class MemberServiceImpl implements MemberService {
             }
             savePublicRow(vo.getSerialnumber(),vo.getPserialnumber());
             //第二步：统计奖励
-//            saveReward(vo);
+            saveRewardFive(vo,count);
+        }
+    }
+
+    /**
+     * 保存奖励
+     * @param vo
+     */
+    private void saveRewardFive(MemberVo vo,int count) {
+        //第一步：首先判断添加的新会员的介绍人下的会员
+        if(count<5){//奖励层
+            saveMemberLevelReward(vo);
+        }
+        //公排
+        savePublicRowReward(vo);
+    }
+
+    /**
+     * 公排的奖励
+     * @param vo
+     */
+    private void savePublicRowReward(MemberVo vo) {
+        Reward reward = new Reward();
+        reward.setMemberserialnumber(vo.getPserialnumber());
+        reward.setRewardmoney(30);
+        Date date = new Date();
+        reward.setRewardtime(date);
+        reward.setCreatetime(date);
+        reward.setCreateuser(vo.getCreateuser());
+        reward.setType((byte)1);
+        reward.setStatus((byte)0);
+        reward.setLevel((byte)0);
+        rewardMapper.insertReward(reward);
+    }
+
+    /**
+     * 层的奖励
+     * @param vo
+     */
+    private void saveMemberLevelReward(MemberVo vo) {
+        String pserinalNumber = saveFiveLayerReward(vo.getPserialnumber(),vo.getCreateuser(),300,(byte) 1);
+        if(StringUtil.isNotNull(pserinalNumber)){
+            //第二级：如果1还有上级，则奖励1的上级（称为11）
+            String ppserinalNumber = saveFiveLayerReward(pserinalNumber,vo.getCreateuser(),200,(byte)2);
+            if(StringUtil.isNotNull(ppserinalNumber)){
+                //第三级：如果11还有上级，则奖励11的上级（称为111）
+                String pppserinalNumber = saveFiveLayerReward(ppserinalNumber,vo.getCreateuser(),150,(byte)3);
+                if(StringUtil.isNotNull(pppserinalNumber)){
+                    String ppppserinalNumber = saveFiveLayerReward(pppserinalNumber,vo.getCreateuser(),100,(byte)4);
+                    if(StringUtil.isNotNull(ppppserinalNumber)){
+                        String pppppserinalNumber = saveFiveLayerReward(ppppserinalNumber,vo.getCreateuser(),50,(byte)1);
+                    }
+                }
+            }
         }
     }
 
@@ -289,7 +342,20 @@ public class MemberServiceImpl implements MemberService {
 
     }
 
-
+    private String saveFiveLayerReward(String pserinalNumber, Long createuser,int rewardMoney,byte level) {
+        Reward reward = new Reward();
+        reward.setMemberserialnumber(pserinalNumber);
+        reward.setRewardmoney(rewardMoney);
+        Date date = new Date();
+        reward.setRewardtime(date);
+        reward.setCreatetime(date);
+        reward.setCreateuser(createuser);
+        reward.setType((byte) 0);
+        reward.setStatus((byte) 0);
+        reward.setLevel(level);
+        rewardMapper.insertReward(reward);
+        return memberLevelMapper.selectPserialNumberBySerialNumber(pserinalNumber);
+    }
     /**
      * 奖励第三层
      * @param ppserinalNumber
