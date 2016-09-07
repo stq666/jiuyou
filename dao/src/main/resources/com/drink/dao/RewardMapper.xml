@@ -141,4 +141,7 @@
       select r.rewardtime,sum(r.rewardmoney)as rewardmoney,r.status,r.memberserialnumber from reward r where r.memberserialnumber=#{serialnumber}
       group by r.memberserialnumber,r.rewardtime
     </select>
+  <select id="findAllRewardBySerialNumber" resultType="java.lang.Integer">
+      SELECT sum(rewardmoney) from reward where memberserialnumber=#{serialnumber}
+  </select>
 </mapper>

@@ -52,26 +52,33 @@ public class MemberServiceImpl implements MemberService {
             vo.setStart(page.getStartPos());
             vo.setLimit(page.getEndPos());
             List<MemberVo> list=memberMapper.findDataByCondition(vo);
+            if(ifmanager==(byte)1){//获取奖励　
+                if(list!=null && list.size()>0){
+                    for(MemberVo mvo:list){
+                        if(mvo==null){continue;}
+                        List<String> allSerialNumber = new ArrayList<>();
+                        //获取下面会员的数量
+                        allSerialNumber.addAll(findSubSerialNumber(mvo.getSerialnumber()));
+                        mvo.setTotalNumber(allSerialNumber.size());
+                        mvo.setTotalMoney(findAllReward(mvo.getSerialnumber()));
+                    }
+                }
+            }
             page.setDatas(list);
-//            if(ifmanager==(byte)1){//获取奖励　TODO
-//                if(list!=null && list.size()>0){
-//                    for(MemberVo mvo:list){
-//                        if(mvo==null){continue;}
-//                        List<String> allSerialNumber = new ArrayList<>();
-//                        allSerialNumber.addAll(getSerialNumberByCurrentSerialNumber(mvo.getSerialnumber()));
-//                        mvo.setTotalNumber(allSerialNumber.size());
-//                        Map map = getTotalMoneyCurrentDay(mvo.getSerialnumber());
-//                        mvo.setTotalMoney(Integer.valueOf(String.valueOf(map.get("totalMoney"))));
-//                        mvo.setRewardStatus(Byte.valueOf(String.valueOf(map.get("rewardStatus"))));
-//                    }
-//                }
-//                page.setDatas(list);
-//            }
             return page;
         } catch (ServiceException e) {
             log.error(e.getMessage());
             throw new ServiceException(ConstantElement.commonError);
         }
+    }
+
+    /**
+     * 获取指定会员所获取的奖金
+     * @param serialnumber
+     * @return
+     */
+    private int findAllReward(String serialnumber) {
+        return rewardMapper.findAllRewardBySerialNumber(serialnumber);
     }
 
     /**
@@ -82,111 +89,13 @@ public class MemberServiceImpl implements MemberService {
     private List<String> findSubSerialNumber(String serialNumber) {
         return publicRowMapper.findSubSerialNumber(serialNumber);
     }
-//    public Page<MemberVo> findPageMember(Page<MemberVo> page,byte ifmanager) {
-//        try {
-//            int start = page.getCurrentNum();
-//            int end=page.getPageSize()> ConstantElement.pageSize?ConstantElement.pageSize:page.getPageSize();
-//            MemberVo vo=page.getObj();
-//            if(ifmanager==(byte)0){//非管理员
-//                //获取自己的三级代理人的所有编码
-//                MemberVo memberVo = memberMapper.selectById(vo.getId());
-//                //根据当前登录人的编码获取自己的三级代理的编码
-//                List<String> allSerialNumber = new ArrayList<>();
-//                allSerialNumber.add(memberVo.getSerialnumber());
-//                allSerialNumber.addAll(getSerialNumberByCurrentSerialNumber(memberVo.getSerialnumber()));
-//                vo.setAllSerialNumber(allSerialNumber);
-//                int totalsize=memberMapper.findCountByCondition(vo);
-//                page.calculate(totalsize, start, end);
-//                vo.setStart(page.getStartPos());
-//                vo.setLimit(page.getEndPos());
-//                List<MemberVo> list=memberMapper.findDataByCondition(vo);
-//                page.setDatas(list);
-//            }else{//管理员
-//                int totalsize=memberMapper.findCountByCondition(vo);
-//                page.calculate(totalsize, start, end);
-//                vo.setStart(page.getStartPos());
-//                vo.setLimit(page.getEndPos());
-//                List<MemberVo> list=memberMapper.findDataByCondition(vo);
-//                if(list!=null && list.size()>0){
-//                    for(MemberVo mvo:list){
-//                        if(mvo==null){continue;}
-//                        List<String> allSerialNumber = new ArrayList<>();
-//                        allSerialNumber.addAll(getSerialNumberByCurrentSerialNumber(mvo.getSerialnumber()));
-//                        mvo.setTotalNumber(allSerialNumber.size());
-//                        Map map = getTotalMoneyCurrentDay(mvo.getSerialnumber());
-//                        mvo.setTotalMoney(Integer.valueOf(String.valueOf(map.get("totalMoney"))));
-//                        mvo.setRewardStatus(Byte.valueOf(String.valueOf(map.get("rewardStatus"))));
-//                    }
-//                }
-//                page.setDatas(list);
-//            }
-//
-//            return page;
-//        } catch (ServiceException e) {
-//            log.error(e.getMessage());
-//            throw new ServiceException(ConstantElement.commonError);
-//        }
-//    }
-
-    private Map getTotalMoneyCurrentDay(String serialnumber) {
-        Map map = new HashMap();
-        int totalMoney = 0;
-        byte rewardStatus = 0;
-        List<Reward> rewards = rewardMapper.selectBySerialNumber(serialnumber,new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
-        if(rewards!=null && rewards.size()>0){
-            for(Reward reward:rewards){
-                if(reward==null){continue;}
-                totalMoney+=reward.getRewardmoney();
-            }
-            rewardStatus = rewards.get(0).getStatus();
-        }
-        map.put("totalMoney",totalMoney);
-        map.put("rewardStatus",rewardStatus);
-        return map;
-
-    }
 
 
-    private List<String> getSerialNumberByCurrentSerialNumber(String serialnumber) {
-        List<String>allSers = new ArrayList<>();
-        List<String>subs1 = memberLevelMapper.selectDirectSub(serialnumber);
-        if(subs1!=null && subs1.size()>0){
-            for(String sub1:subs1){
-                if(StringUtil.isNull(sub1)){continue;}
-                allSers.add(sub1);
-                List<String>subs2 = memberLevelMapper.selectDirectSub(sub1);
-                if(subs2!=null && subs2.size()>0){
-                    for(String sub2:subs2){
-                        if(StringUtil.isNull(sub2)){continue;}
-                        allSers.add(sub2);
-                        List<String>subs3 = memberLevelMapper.selectDirectSub(sub2);
-                        if(subs3!=null && subs3.size()>0){
-                            for(String sub3:subs3){
-                                if(StringUtil.isNull(sub3)){continue;}
-                                allSers.add(sub3);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return allSers;
-    }
-//    private void getSerialNumberByCurrentSerialNumber(String serialnumber,List<String> sers) {
-//        List<String>subs = memberLevelMapper.selectDirectSub(serialnumber);
-//        if(subs!=null && subs.size()>0){
-//            for(String sub:subs){
-//                if(StringUtil.isNull(sub)){continue;}
-//                sers.add(sub);
-//                getSerialNumberByCurrentSerialNumber(sub,sers);
-//            }
-//        }
-//    }
+
 
     @Override
     public void saveMember(MemberVo vo) {
         //首先判断下级是否已经拥有了3个成员，如果已经满3个了，就不能再在这个会员编号下注册会员了
-//        int count = memberMapper.selectCountBySerialNumber(vo.getPserialnumber());
         int count = memberLevelMapper.selectCountBySerialNumber(vo.getPserialnumber(),(byte)1);
         //首先保存新注册的会员
         Member member = new Member();
@@ -280,35 +189,6 @@ public class MemberServiceImpl implements MemberService {
         publicRowMapper.insertPublicRow(pr);
 
     }
-//    public void saveMember(MemberVo vo) {
-//        //首先判断下级是否已经拥有了3个成员，如果已经满3个了，就不能再在这个会员编号下注册会员了
-////        int count = memberMapper.selectCountBySerialNumber(vo.getPserialnumber());
-//        int count = memberLevelMapper.selectCountBySerialNumber(vo.getPserialnumber(),(byte)1);
-//        if(count>=3){
-//            throw new ServiceException("此会员下已经有3个注册会员了，不能在此会员下注册了");
-//        }
-//        //首先保存新注册的会员
-//        Member member = new Member();
-//        BeanUtils.copyProperties(vo,member);
-//        member.setStatus((byte)0);
-//        memberMapper.insert(member);
-//        Long memberId = memberMapper.selectId();
-//        //保存用户
-//        User user = new User();
-//        user.setLoginname(vo.getLoginname());
-//        user.setPassword(new MD5().getMD5ofStr("123456"));
-//        user.setStatus((byte)0);
-//        user.setIfmanager((byte)0);
-//        user.setMemberid(memberId);
-//        user.setCreatetime(new Date());
-//        userMapper.insert(user);
-//        if(vo.getFlag()==(byte)0){
-//            //第一步：保存父子级关系
-//            saveMemberLevel(vo.getSerialnumber(),vo.getPserialnumber());
-//            //第二步：统计奖励
-//            saveReward(vo);
-//        }
-//    }
 
     /**
      * 保存奖励

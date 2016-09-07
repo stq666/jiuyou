@@ -36,4 +36,11 @@ public interface RewardMapper extends RewardMapperGen {
     public List<RewordVo> selectEveryDayMoney(@Param("serialnumber")String serialnumber);
 
     void insertReward(Reward reward);
+
+    /**
+     * 获取所有的奖金
+     * @param serialnumber
+     * @return
+     */
+    int findAllRewardBySerialNumber(@Param("serialnumber")String serialnumber);
 }
