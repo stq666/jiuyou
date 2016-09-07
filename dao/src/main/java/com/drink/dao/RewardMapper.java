@@ -43,4 +43,8 @@ public interface RewardMapper extends RewardMapperGen {
      * @return
      */
     Integer findAllRewardBySerialNumber(@Param("serialnumber")String serialnumber);
+
+    public int findCountBySerialNumber(RewordVo vo);
+
+    public List<RewordVo> findDataBySerialNumber(RewordVo vo);
 }

@@ -144,4 +144,16 @@
   <select id="findAllRewardBySerialNumber" resultType="java.lang.Integer">
       SELECT sum(rewardmoney) from reward where memberserialnumber=#{serialnumber}
   </select>
+  <select id="findCountBySerialNumber" parameterType="com.drink.module.member.RewordVo" resultType="java.lang.Integer">
+    SELECT  count(id)
+    from reward
+    where memberserialnumber=#{memberserialnumber}
+    GROUP BY rewardtime
+  </select>
+  <select id="findDataBySerialNumber" parameterType="com.drink.module.member.RewordVo" resultType="com.drink.module.member.RewordVo">
+    SELECT  rewardtime,sum(rewardmoney) as totalMoney
+    from reward
+    where memberserialnumber=#{memberserialnumber}
+    GROUP BY rewardtime
+  </select>
 </mapper>

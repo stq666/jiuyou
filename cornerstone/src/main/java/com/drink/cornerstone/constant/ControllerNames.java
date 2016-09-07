@@ -28,6 +28,7 @@ public interface ControllerNames {
     //员工
     static final String memberController="/member";
     static final String memberController_findPageMember="/findPageMember";
+    static final String memberController_findPageReward="/findPageReward";
     static final String memberController_findMaxSerialNumber="/findMaxSerialNumber";
     static final String memberController_findLonginMember="/findLonginMember";
     static final String memberController_judgeLoginName="/judgeLoginName";

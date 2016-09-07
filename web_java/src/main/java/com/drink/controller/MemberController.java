@@ -69,6 +69,29 @@ public class MemberController {
     }
 
     /**
+     * 获取指定人的奖金，按日期分组
+     * @param page
+     * @param vo
+     * @return
+     */
+    @RequestMapping(value = ControllerNames.memberController_findPageReward ,method = RequestMethod.POST)
+    public @ResponseBody
+    JSONObject findPageReward(@ModelAttribute Page<RewordVo> page,@ModelAttribute RewordVo vo){
+        Message msg=new Message();
+        try {
+            page.setObj(vo);
+            page=memberService.findPageReward(page);
+            return msg.getResult(true,false,page,null,null);
+        }catch (ServiceException e) {
+            logger.error(e.getMessage());
+            return msg.getResult(false,true,null,e.getMessage(),ConstantElement.errorForbidCode);
+        }catch (Exception e){
+            logger.error(e.getMessage());
+            return msg.getResult(false,true,null,ConstantElement.commonError,ConstantElement.errorForbidCode);
+        }
+    }
+
+    /**
      * 获取会员的最大编号
      * @return
      */

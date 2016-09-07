@@ -426,6 +426,25 @@ public class MemberServiceImpl implements MemberService {
         rewardMapper.updateStatusBySerialnumber(serialnumber,rewardtime);
     }
 
+    @Override
+    public Page<RewordVo> findPageReward(Page<RewordVo> page) {
+        try {
+            int start = page.getCurrentNum();
+            int end=page.getPageSize()> ConstantElement.pageSize?ConstantElement.pageSize:page.getPageSize();
+            RewordVo vo=page.getObj();
+            int totalsize=rewardMapper.findCountBySerialNumber(vo);
+            page.calculate(totalsize, start, end);
+            vo.setStart(page.getStartPos());
+            vo.setLimit(page.getEndPos());
+            List<RewordVo> list=rewardMapper.findDataBySerialNumber(vo);
+            page.setDatas(list);
+            return page;
+        } catch (ServiceException e) {
+            log.error(e.getMessage());
+            throw new ServiceException(ConstantElement.commonError);
+        }
+    }
+
     private TreeNode saveMemberToTreeNode(MemberVo vo) {
         TreeNode node = new TreeNode();
         node.setId(vo.getId());

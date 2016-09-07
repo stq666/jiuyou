@@ -6,6 +6,7 @@ import com.drink.module.TreeNode;
 import com.drink.module.member.MemberVo;
 import com.drink.module.member.RewordVo;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -74,4 +75,11 @@ public interface MemberService {
     public List<RewordVo> findEveryDayMoney(String serialnumber);
 
     public void updateRewardStatusAndRewardtime(String serialnumber, String rewardtime);
+
+    /**
+     * 获取指定人的奖金，按日期分组
+     * @param page
+     * @return
+     */
+    Page<RewordVo> findPageReward(Page<RewordVo> page);
 }
