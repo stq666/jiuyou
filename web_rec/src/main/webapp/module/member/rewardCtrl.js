@@ -1,4 +1,4 @@
-member.controller('RewardCtrl', ['$scope','$state','$window','$filter','MemberControllerService','TableService','localStorageService', function($scope,$state,$window,$filter,MemberControllerService,TableService,localStorageService) {
+member.controller('RewardCtrl', ['$scope','$state','$window','$filter','MemberControllerService','TableService', function($scope,$state,$window,$filter,MemberControllerService,TableService) {
 
     $scope.pageSize=20;
     $scope.targeFlag = { 'org': false, items: {} };
@@ -32,17 +32,9 @@ member.controller('RewardCtrl', ['$scope','$state','$window','$filter','MemberCo
     //初始化
     $scope.init=function(){
         page(1);
-        $scope.checkboxes = { 'checked': false, items: {} };
     };
-
-    //改变页面
-    $scope.pageChanged = function() {
-        page($scope.bigCurrentPage);
-    };
-
     //搜索
     $scope.search=function(){
-        $scope.checkboxes = { 'checked': false, items: {} };
         page(1);
     };
     $scope.init();

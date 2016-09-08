@@ -13,14 +13,11 @@
     <div class="renyuan_tab">
         <table width="100%" ng-table="tableParams" class="table" >
             <tr ng-repeat="data in $data">
-                <td  header="'ng-table/headers/checkbox.html'" style="width: 3%" ng-show="ifmanager==1">
-                    <input type="checkbox" ng-model="checkboxes.items[data.id]" />
-                </td>
                 <td data-title="'序号'" style="width: 3%">
                     {{$index+1}}
                 </td>
                 <td data-title="'奖励日期'" style="width: 8%">
-                    {{data.rewardtime | 'yyyy-MM-dd'}}
+                    {{data.rewardtime | date :'yyyy-MM-dd'}}
                 </td>
                 <td data-title="'奖励金额'" style="width: 8%">
                     {{data.totalMoney}}
