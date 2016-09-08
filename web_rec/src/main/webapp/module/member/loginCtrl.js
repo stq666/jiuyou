@@ -12,7 +12,7 @@ member.controller('LoginCtrl', ['$scope','$rootScope','SecurityControllerService
         }
         if(data.result.success){
             if(objuser.ifmanager==0){//非管理员
-                $state.go("base.welcome");
+                $state.go("base.rule");
             }else{//管理员
                 $state.go("base.member");
             }
