@@ -58,9 +58,17 @@ member.controller('BaseIndexCtrl', ['$scope','$rootScope','$location','SecurityC
      * 修改密码
      */
     $scope.submitChangePwd=function(){
-
         var onSuccess=function (data, status) {
-            $scope.mems = data.result.returnObject;
+            bootbox.dialog({
+                message: "<p style='color:#3e8f3e; font-size:16px'>密码修改成功,以后需要用新修改的密码登陆，如果忘记密码，请联系管理员！</p>",
+                title: "提示",
+                buttons: {
+                    success: {
+                        label: "确定",
+                        className: "btn-primary"
+                    }
+                }
+            });
             $scope.cancelChangePwd();
 
         };
