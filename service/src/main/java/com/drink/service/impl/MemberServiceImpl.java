@@ -163,12 +163,12 @@ public class MemberServiceImpl implements MemberService {
         String pserinalNumber = saveFiveLayerReward(vo.getPserialnumber(),vo.getCreateuser(),300,(byte) 1);
         if(StringUtil.isNotNull(pserinalNumber)){
             //第二级：如果1还有上级，则奖励1的上级（称为11）
-            String ppserinalNumber = saveFiveLayerReward(pserinalNumber,vo.getCreateuser(),200,(byte)2);
+            String ppserinalNumber = saveFiveLayerReward(pserinalNumber,vo.getCreateuser(),150,(byte)2);
             if(StringUtil.isNotNull(ppserinalNumber)){
                 //第三级：如果11还有上级，则奖励11的上级（称为111）
-                String pppserinalNumber = saveFiveLayerReward(ppserinalNumber,vo.getCreateuser(),150,(byte)3);
+                String pppserinalNumber = saveFiveLayerReward(ppserinalNumber,vo.getCreateuser(),120,(byte)3);
                 if(StringUtil.isNotNull(pppserinalNumber)){
-                    String ppppserinalNumber = saveFiveLayerReward(pppserinalNumber,vo.getCreateuser(),100,(byte)4);
+                    String ppppserinalNumber = saveFiveLayerReward(pppserinalNumber,vo.getCreateuser(),80,(byte)4);
                     if(StringUtil.isNotNull(ppppserinalNumber)){
                         String pppppserinalNumber = saveFiveLayerReward(ppppserinalNumber,vo.getCreateuser(),50,(byte)1);
                     }
